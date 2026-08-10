@@ -1,0 +1,144 @@
+# Week 3 Prac — Switches, MAC Addresses and ARP
+
+Step-by-step instructions for completing the blue Documentation Tasks in the Week 3 prac doc using Cisco Packet Tracer.
+
+---
+
+## Setup — Build the network (required before Task 1 & 2)
+
+1. Open **Cisco Packet Tracer**.
+2. In the bottom-left device palette, click **Switches** → drag one **Cisco 2960** onto the workspace.
+3. Click **End Devices** → drag **two PCs** onto the workspace.
+4. Rename the first PC (click its label, or right-click → rename) to something other than `PC0`. **Your setup:** the first PC was renamed to **`PC2`**. The second PC dragged in kept its default name, **`PC1`**.
+   - ⚠️ Because the names ended up as PC2 and PC1 (not PC1/PC2 in drag order), the IP addressing below follows the **name**, not the order you added them — PC2 gets `.2`, PC1 gets `.1`. Double-check your own device names match before following the IPs below; rename here if not.
+5. Click **Connections** → select the **copper straight-through cable** → click **PC2** → click a port on the switch → click **PC1** → click another port on the switch.
+6. Wait for the link lights on the switch to turn **green** (may flash amber briefly first).
+
+---
+
+## Task 1 — Switch features
+
+**Where:** Click the switch icon in the workspace → **Physical** tab.
+
+### Identifying ports (FastEthernet vs uplink)
+
+Don't try to read tiny labels off the image — get Packet Tracer to tell you directly:
+
+1. **Hover method:** In the **Physical** tab, hover the mouse slowly over each port. A tooltip pops up naming that exact port (e.g. `FastEthernet0/1`, `GigabitEthernet0/1`).
+2. **Faster method:** Click **Connections** → pick the cable → click the switch (not a specific port yet). A pop-up list shows **every port name** on the switch — the ~24 numbered ports (`FastEthernet0/1` … `0/24`) are the regular access ports; the 1–2 `GigabitEthernet0/x` ports (set apart, usually top-right or far right) are the **uplink ports**. Cancel out if you're just checking, not connecting.
+3. **CLI method (most reliable):** Click the switch → **CLI** tab → run:
+   ```
+   show ip interface brief
+   ```
+   Prints every interface name and status as plain text.
+
+### Checking LEDs (when they're too small to read visually)
+
+The Physical-view image doesn't get sharper on zoom — that's a fixed-resolution limitation, not something you're doing wrong. Skip the visual LEDs and check status via CLI instead:
+
+1. Switch → **CLI** tab.
+2. Run:
+   ```
+   show interfaces status
+   ```
+   Shows every port's link status (connected/notconnect), speed, and duplex as text — equivalent to what the STAT/DUPLX/SPEED LEDs show, just readable.
+3. For a single port's detail:
+   ```
+   show interface FastEthernet0/1
+   ```
+
+### What to write in your notebook
+
+- A short list of switch features: port count/type (FastEthernet vs GigabitEthernet uplinks), LED indicators present (SYST, RPS, STAT, DUPLX, SPEED — meanings can be confirmed from Cisco's documentation online), power connector, console port.
+- Note that you verified port status via CLI (`show interfaces status`) rather than the physical LEDs, since Packet Tracer's rendering is too small to read reliably.
+
+---
+
+## Task 2 — IP addresses & switch ports
+
+**Where:** Click each PC → **Config** tab (or **Desktop → IP Configuration**).
+
+1. Click **PC2** → **Config** tab → **FastEthernet** section.
+2. Set:
+   - **IP Address:** `192.168.1.2` (PC2 → x = 2)
+   - **Subnet Mask:** `255.255.255.0`
+   - Leave all other fields blank.
+3. Click **PC1** → repeat with:
+   - **IP Address:** `192.168.1.1` (PC1 → x = 1)
+   - **Subnet Mask:** `255.255.255.0`
+4. Back in the workspace, click each cable connection to confirm which switch port (e.g. Fa0/1, Fa0/2) each PC is plugged into.
+
+### What to write in your notebook
+
+- A small table: PC name | IP address | switch port connected to. Based on your setup:
+
+  | PC name | IP address | Switch port |
+  |---|---|---|
+  | PC2 | 192.168.1.2 | *(fill in from step 4)* |
+  | PC1 | 192.168.1.1 | *(fill in from step 4)* |
+
+---
+
+## Task 3 — Verify the network works
+
+**Where:** PC → **Desktop** tab → **Command Prompt**.
+
+1. Click **PC2** → **Desktop** → **Command Prompt**.
+2. Type:
+   ```
+   ping 192.168.1.1
+   ```
+3. Confirm you get **Reply from...** messages (not "Request timed out").
+
+### What to write in your notebook
+
+- The tool used (`ping`, via Command Prompt) and the actual result/output observed.
+
+---
+
+## Task 4 — ipconfig /all
+
+**Where:** Same Command Prompt window.
+
+1. Type (note the space before `/all`):
+   ```
+   ipconfig /all
+   ```
+2. Scroll to the **Ethernet adapter** section.
+
+### What to write in your notebook
+
+- The useful fields: **IP Address**, **Subnet Mask**, **Physical Address (MAC)** — with a brief note on what each represents.
+
+---
+
+## Task 5 — ARP table
+
+**Where:** Command Prompt on a PC.
+
+1. Type:
+   ```
+   arp -a
+   ```
+2. Note what device(s) appear (likely little or nothing yet) — record this.
+3. Ping the other PC (from PC2: `ping 192.168.1.1`; from PC1: `ping 192.168.1.2`).
+4. Run `arp -a` again.
+5. Also try `arp -?` to see the command's options.
+
+### What to write in your notebook
+
+- What devices now appear in the ARP table.
+- Whether you can see the physical (MAC) address of the other PC.
+- What extra options `arp -?` revealed.
+- Explicitly answer: **do any IP addresses share the same MAC address?** State yes/no with evidence.
+
+---
+
+## Exercise 5 — ARP in Simulation Mode (exploration only, no write-up)
+
+No blue Documentation Task here — just explore:
+
+1. Switch Packet Tracer to **Simulation Mode**.
+2. Generate traffic using `ping` between the PCs.
+3. Observe ARP packets appearing in the **Event List**.
+4. Click on packets to inspect: Source MAC, Destination MAC, ARP Request and Reply.
