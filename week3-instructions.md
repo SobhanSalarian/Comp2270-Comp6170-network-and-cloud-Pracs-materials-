@@ -124,6 +124,42 @@ first enable it
 4. Run `arp -a` again.
 5. Also try `arp -?` to see the command's options.
 
+# ARP Investigation in Packet Tracer
+
+## Network Setup
+
+The network consists of:
+
+- PC1
+- PC2
+- One switch
+
+### IP Addresses
+
+| Device | IP Address |
+|---|---|
+| PC1 | `192.168.1.1` |
+| PC2 | `192.168.1.2` |
+
+---
+
+## 1. Switch to Simulation Mode
+
+1. Open the Packet Tracer project.
+2. At the bottom-right of the Packet Tracer window, click **Simulation**.
+3. Make sure **ARP** and **ICMP** are enabled in the **Event List Filters**.
+
+---
+
+## 2. Generate Traffic Using Ping
+
+1. Click **PC1**.
+2. Go to **Desktop → Command Prompt**.
+3. Enter the following command:
+
+```text
+ping 192.168.1.2
+
 ### What to write in your notebook
 
 - What devices now appear in the ARP table.
