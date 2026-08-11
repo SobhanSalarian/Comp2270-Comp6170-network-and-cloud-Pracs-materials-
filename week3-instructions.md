@@ -170,10 +170,4 @@ If a PC already has the other PC's MAC cached, it won't send a new ARP request w
 3. Click through consecutive events at each device (PC2 → Switch → PC1 → Switch → PC2) to see the request go out and the reply come back, and note how the switch just forwards/floods it rather than processing IP.
 4. Once you've stepped through the ARP exchange, keep clicking **Capture / Forward** to also inspect the following ICMP (ping) packets the same way, if you want to compare Layer 2 vs Layer 3 headers.
 
-### What to write in your notebook
-
-- What devices now appear in the ARP table.
-- Whether you can see the physical (MAC) address of the other PC.
-- What extra options `arp -?` revealed.
-- Explicitly answer: **do any IP addresses share the same MAC address?** State yes/no with evidence.
 
