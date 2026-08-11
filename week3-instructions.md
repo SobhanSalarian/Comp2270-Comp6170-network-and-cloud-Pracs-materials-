@@ -131,13 +131,3 @@ first enable it
 - What extra options `arp -?` revealed.
 - Explicitly answer: **do any IP addresses share the same MAC address?** State yes/no with evidence.
 
----
-
-## Exercise 5 — ARP in Simulation Mode (exploration only, no write-up)
-
-No blue Documentation Task here — just explore:
-
-1. Switch Packet Tracer to **Simulation Mode**.
-2. Generate traffic using `ping` between the PCs.
-3. Observe ARP packets appearing in the **Event List**.
-4. Click on packets to inspect: Source MAC, Destination MAC, ARP Request and Reply.
