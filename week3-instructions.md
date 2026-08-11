@@ -33,6 +33,7 @@ Don't try to read tiny labels off the image — get Packet Tracer to tell you di
 ### Checking LEDs (when they're too small to read visually)
 
 The Physical-view image doesn't get sharper on zoom — that's a fixed-resolution limitation, not something you're doing wrong. Skip the visual LEDs and check status via CLI instead:
+first enable it 
 
 1. Switch → **CLI** tab.
 2. Run:
