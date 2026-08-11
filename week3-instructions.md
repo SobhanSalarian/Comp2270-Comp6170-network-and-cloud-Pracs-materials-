@@ -125,41 +125,50 @@ first enable it
 5. Also try `arp -?` to see the command's options.
 
 # ARP Investigation in Packet Tracer
+## Exercise 5 — ARP in Simulation Mode
 
-## Network Setup
 
-The network consists of:
+### 1. Clear the ARP cache first (so you actually see ARP traffic)
 
-- PC1
-- PC2
-- One switch
+If a PC already has the other PC's MAC cached, it won't send a new ARP request when you ping — you'll only see ICMP. Clear the cache first:
 
-### IP Addresses
+1. Click **PC2** → **Desktop** → **Command Prompt**.
+2. Run:
+   ```
+   arp -d *
+   ```
+3. Do the same on **PC1** (Command Prompt → `arp -d *`).
 
-| Device | IP Address |
-|---|---|
-| PC1 | `192.168.1.1` |
-| PC2 | `192.168.1.2` |
+### 2. Switch to Simulation Mode
 
----
+1. Look at the bottom-right corner of the Packet Tracer window — there are two mode buttons: **Realtime** and **Simulation**.
+2. Click **Simulation**. A new **Simulation Panel** opens on the right showing an **Event List** (empty for now) and playback controls (**Auto Capture / Play**, **Capture / Forward**, **Reset Simulation**).
+3. Optional but recommended: click **Edit Filters** in the Simulation Panel → **Show All/None** → tick only **ARP** and **ICMP** so the Event List isn't cluttered with other protocols.
 
-## 1. Switch to Simulation Mode
+### 3. Generate traffic using ping
 
-1. Open the Packet Tracer project.
-2. At the bottom-right of the Packet Tracer window, click **Simulation**.
-3. Make sure **ARP** and **ICMP** are enabled in the **Event List Filters**.
+1. Click **PC2** → **Desktop** → **Command Prompt**.
+2. Run:
+   ```
+   ping 192.168.1.1
+   ```
+3. Switch to the Simulation Panel and click **Auto Capture / Play** (or **Capture / Forward** to step through one event at a time).
+4. Watch envelope icons animate between PC2 → Switch → PC1, and rows appear in the **Event List** below.
 
----
+### 4. Observe ARP packets in the Event List
 
-## 2. Generate Traffic Using Ping
+- The first envelopes you see should be **ARP** (Device = PC2, then the switch, then PC1) — this is the ARP request/reply happening *before* the ICMP ping packet, since PC2 needs PC1's MAC address first.
+- After the ARP exchange completes, you'll then see **ICMP** envelopes for the actual ping.
+- Each row in the Event List shows: **Time**, **Last Device**, **At Device**, **Type** (colour-coded — ARP is usually a different colour from ICMP).
 
-1. Click **PC1**.
-2. Go to **Desktop → Command Prompt**.
-3. Enter the following command:
+### 5. Click on packets to inspect details
 
-```text
-ping 192.168.1.2
-```
+1. In the Event List, click the coloured square in the **Type** column for an **ARP** event (or click the envelope icon on the device in the topology). This opens the **PDU Information** window.
+2. In that window:
+   - **OSI Model tab** → look at **Layer 2** → shows the **Source MAC** and **Destination MAC** for that hop. For an ARP *request*, the destination MAC will be the broadcast address `FFFF.FFFF.FFFF`.
+   - **Inbound PDU Details / Outbound PDU Details tabs** → scroll to the **ARP** section → shows whether it's an **ARP Request** (`Opcode: REQUEST`, asking "who has this IP?") or an **ARP Reply** (`Opcode: REPLY`, "this is my MAC").
+3. Click through consecutive events at each device (PC2 → Switch → PC1 → Switch → PC2) to see the request go out and the reply come back, and note how the switch just forwards/floods it rather than processing IP.
+4. Once you've stepped through the ARP exchange, keep clicking **Capture / Forward** to also inspect the following ICMP (ping) packets the same way, if you want to compare Layer 2 vs Layer 3 headers.
 
 ### What to write in your notebook
 
