@@ -49,7 +49,7 @@ first enable it
 ### What to write in your notebook
 
 - A short list of switch features: port count/type (FastEthernet vs GigabitEthernet uplinks), LED indicators present (SYST, RPS, STAT, DUPLX, SPEED — meanings can be confirmed from Cisco's documentation online), power connector, console port.
-- Note that you verified port status via CLI (`show interfaces status`) rather than the physical LEDs, since Packet Tracer's rendering is too small to read reliably.
+
 
 ---
 
