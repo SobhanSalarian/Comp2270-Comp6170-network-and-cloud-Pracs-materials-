@@ -24,9 +24,7 @@ Step-by-step instructions for completing the blue Documentation Tasks in the Wee
 
 Don't try to read tiny labels off the image — get Packet Tracer to tell you directly:
 
-1. **Hover method:** In the **Physical** tab, hover the mouse slowly over each port. A tooltip pops up naming that exact port (e.g. `FastEthernet0/1`, `GigabitEthernet0/1`).
-2. **Faster method:** Click **Connections** → pick the cable → click the switch (not a specific port yet). A pop-up list shows **every port name** on the switch — the ~24 numbered ports (`FastEthernet0/1` … `0/24`) are the regular access ports; the 1–2 `GigabitEthernet0/x` ports (set apart, usually top-right or far right) are the **uplink ports**. Cancel out if you're just checking, not connecting.
-3. **CLI method (most reliable):** Click the switch → **CLI** tab → run:
+**CLI method (most reliable):** Click the switch → **CLI** tab → run:
    ```
    show ip interface brief
    ```
