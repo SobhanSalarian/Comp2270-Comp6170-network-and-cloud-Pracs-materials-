@@ -159,6 +159,7 @@ The network consists of:
 
 ```text
 ping 192.168.1.2
+```
 
 ### What to write in your notebook
 
