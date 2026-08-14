@@ -24,9 +24,7 @@ Step-by-step instructions for completing the blue Documentation Tasks in the Wee
 
 Don't try to read tiny labels off the image — get Packet Tracer to tell you directly:
 
-1. **Hover method:** In the **Physical** tab, hover the mouse slowly over each port. A tooltip pops up naming that exact port (e.g. `FastEthernet0/1`, `GigabitEthernet0/1`).
-2. **Faster method:** Click **Connections** → pick the cable → click the switch (not a specific port yet). A pop-up list shows **every port name** on the switch — the ~24 numbered ports (`FastEthernet0/1` … `0/24`) are the regular access ports; the 1–2 `GigabitEthernet0/x` ports (set apart, usually top-right or far right) are the **uplink ports**. Cancel out if you're just checking, not connecting.
-3. **CLI method (most reliable):** Click the switch → **CLI** tab → run:
+**CLI method (most reliable):** Click the switch → **CLI** tab → run:
    ```
    show ip interface brief
    ```
@@ -35,6 +33,7 @@ Don't try to read tiny labels off the image — get Packet Tracer to tell you di
 ### Checking LEDs (when they're too small to read visually)
 
 The Physical-view image doesn't get sharper on zoom — that's a fixed-resolution limitation, not something you're doing wrong. Skip the visual LEDs and check status via CLI instead:
+first enable it 
 
 1. Switch → **CLI** tab.
 2. Run:
@@ -50,7 +49,7 @@ The Physical-view image doesn't get sharper on zoom — that's a fixed-resolutio
 ### What to write in your notebook
 
 - A short list of switch features: port count/type (FastEthernet vs GigabitEthernet uplinks), LED indicators present (SYST, RPS, STAT, DUPLX, SPEED — meanings can be confirmed from Cisco's documentation online), power connector, console port.
-- Note that you verified port status via CLI (`show interfaces status`) rather than the physical LEDs, since Packet Tracer's rendering is too small to read reliably.
+
 
 ---
 
@@ -125,18 +124,9 @@ The Physical-view image doesn't get sharper on zoom — that's a fixed-resolutio
 4. Run `arp -a` again.
 5. Also try `arp -?` to see the command's options.
 
-### What to write in your notebook
+# ARP Investigation in Packet Tracer
+## Exercise 5 — ARP in Simulation Mode
 
-- What devices now appear in the ARP table.
-- Whether you can see the physical (MAC) address of the other PC.
-- What extra options `arp -?` revealed.
-- Explicitly answer: **do any IP addresses share the same MAC address?** State yes/no with evidence.
-
----
-
-## Exercise 5 — ARP in Simulation Mode (exploration only, no write-up)
-
-No blue Documentation Task here — just explore. Detailed clicks below.
 
 ### 1. Clear the ARP cache first (so you actually see ARP traffic)
 
