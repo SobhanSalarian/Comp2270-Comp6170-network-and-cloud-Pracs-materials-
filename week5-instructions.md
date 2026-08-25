@@ -52,7 +52,7 @@ Reference layout (from the doc):
    ip address 192.168.30.1 255.255.255.252
    no shutdown
    ```
-5. Check `show ip interface brief` (or `do show ip interface brief` if you're still inside config mode) — G0/0 should now show `up`, but the **line protocol column will still show `down`**. That's expected at this point — the other end isn't configured yet. **Ask your TA to explain why an interface can be administratively `up` but the line protocol still `down`**, before moving on.
+5. Check `show ip interface brief` (or `do show ip interface brief` if you're still inside config mode) — G0/0 should now show `up`, but the **line protocol column will still show `down`**. That's expected at this point — the other end isn't configured yet.**WHY ?**
 
 ### Configure Router1
 
@@ -109,7 +109,7 @@ All three should succeed — this just confirms each LAN's switching/addressing 
 1. **PC0** → Command Prompt → `ping 192.168.20.3` (PC3 — reachable via Router0 directly, no static route needed yet since both LANs are directly connected to Router0).
 2. **PC0** → Command Prompt → `ping 192.168.40.2` (PC7 — this crosses through Router1, likely to fail).
 3. **PC3** → Command Prompt → `ping 192.168.40.1` (PC6 — same idea, likely to fail).
-4. Note which ones succeed and which fail. **Ask your TA to explain the pattern** — why PC0→PC3 behaves differently from PC0→PC7 or PC3→PC6 — before proceeding.
+4. Note which ones succeed and which fail. **Why ??**
 
 ---
 
@@ -159,7 +159,7 @@ All three should succeed — this just confirms each LAN's switching/addressing 
 
 1. **PC0** → `ping 192.168.40.2` (PC7).
 2. **PC3** → `ping 192.168.40.1` (PC6).
-3. Note the results. **Ask your TA to explain the outcome** — one direction may now work while the other still doesn't, and it's worth reasoning about *why* before you're told — before moving to Step i.
+3. Note the results. 
 
 ---
 
@@ -172,8 +172,8 @@ All three should succeed — this just confirms each LAN's switching/addressing 
    configure terminal
    ip route 192.168.10.0 255.255.255.0 G0/0
    ```
-2. Now test: **PC0** → `ping 192.168.40.2` (PC7). Note the result. **Ask your TA to explain the outcome** before continuing.
-3. Test: **PC3** → `ping 192.168.40.1` (PC6). Note the result. **Ask your TA to explain the outcome** before continuing (one route alone won't fix every path — think about which networks Router1 still doesn't know about).
+2. Now test: **PC0** → `ping 192.168.40.2` (PC7). Note the result. before continuing.
+3. Test: **PC3** → `ping 192.168.40.1` (PC6). Note the result. before continuing (one route alone won't fix every path — think about which networks Router1 still doesn't know about).
 4. Add the second static route on Router1, for PC3/PC4/PC5's LAN:
    ```
    ip route 192.168.20.0 255.255.255.0 G0/0
@@ -223,10 +223,3 @@ or the shorthand `write`. Press Enter to confirm the filename prompt.
 
 ---
 
-## Step l — Troubleshoot failed pings (if anything above didn't work)
-
-1. **Router interfaces UP/UP?** `show ip interface brief` on both routers — every interface in use (G0/0, G0/1, G0/2 as applicable) should show `up`/`up`. If line protocol is down on the Router0↔Router1 link specifically, double-check *both* ends have `no shutdown` applied and correct IPs in the same /30 subnet.
-2. **Do both routers have routes for every network?** `show ip route` on each — Router0 needs a route (direct or static) to all 4 networks; same for Router1. Missing one is the most common cause of a one-directional ping failure.
-3. **PC gateways correct?** Especially PC6/PC7 — easy to typo `255.255.255.128` as `.0` or `.255.255.0`.
-4. **Correct cable types?** Straight-through everywhere here (PC↔Switch, Switch↔Router, and Router↔Router since 2911 supports Auto-MDIX).
-5. **IP addresses match the addressing table?** Re-check especially the /30 link (192.168.30.1 / .2) and the /25 LAN (192.168.40.x) — the non-standard masks are the easiest place to introduce a typo.
