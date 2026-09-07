@@ -107,7 +107,6 @@ All three should succeed — this just confirms local switching/addressing befor
 
 - Record whether each of the three pings above succeeded or failed.
 - Write down **your own theory** for why you see that pattern before discussing it — think about which networks are directly connected to which router versus which require crossing to the other router, and what's actually in each router's routing table right now (nothing beyond directly-connected networks, since no static routes or dynamic routing protocol has been configured yet).
-- Then **ask your TA** to confirm/correct your reasoning before proceeding.
 
 ---
 
