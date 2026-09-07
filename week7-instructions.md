@@ -47,7 +47,7 @@ Type **`no`** and press Enter — this dialog is a guided setup wizard you don't
    ip address 192.168.30.1 255.255.255.252
    no shutdown
    ```
-5. Check `do show ip interface brief` — G0/0 will show `up`, but **line protocol will still show `down`**. That's expected — the other end isn't configured yet. **Ask your TA to explain why an interface can be administratively `up` while the line protocol is still `down`**, before continuing.
+5. Check `do show ip interface brief` — G0/0 will show `up`, but **line protocol will still show `down`**. That's expected — the other end isn't configured yet.
 
 ### Configure Router1
 
