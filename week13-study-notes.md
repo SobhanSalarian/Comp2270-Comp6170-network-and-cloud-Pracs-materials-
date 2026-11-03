@@ -86,28 +86,4 @@ Scaling = **adding or removing servers** to match traffic. Think of a **café de
 - **c)** Sudden unpredictable spikes; add servers when CPU climbs → **Dynamic scaling**
 - **d)** Rush timing shifts, servers slow to boot, months of history → **Predictive scaling**
 
-### Telling the tricky ones apart
 
-- **Scheduled vs predictive** – both prepare ahead of time:
-  - Traffic is **the same every time** (fixed day and time) → **scheduled**
-  - Traffic **shifts** and there's **historical data** to forecast → **predictive**
-- **Dynamic vs predictive:**
-  - **Dynamic** *reacts* after traffic rises (follows CPU live)
-  - **Predictive** acts *before* traffic rises – that's why (d) mentions slow boot times: reacting is too late
-
----
-
-## Quick self-test
-
-1. Data stored without encryption and open to anyone: which pillar?
-2. A video app's upload, search and billing parts are built and updated separately: which architecture?
-3. A university adds servers automatically when CPU hits 70%: which scaling type?
-4. A shop adds servers every Monday at 9 AM because sales always start then: which scaling type?
-
-**Answers:** 1. Security · 2. Microservices · 3. Dynamic scaling · 4. Scheduled scaling
-
----
-
-## My notes
-
-_(Add your own notes here.)_
